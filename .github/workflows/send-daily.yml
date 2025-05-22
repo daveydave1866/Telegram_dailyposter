@@ -2,25 +2,25 @@ name: Send Daily Telegram Message
 
 on:
   schedule:
-    - cron: '0 18 * * *' # Every day at 09:00 UTC
-  workflow_dispatch: # allows manual run
+    - cron: '0 19 * * *' # Every day at 6PM GMT
+  workflow_dispatch: # Allows manual runs
 
 jobs:
   send:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          python-version: '3.11'  # Use a modern Python version
 
-      - name: Install dependencies
+      - name: Install requests
         run: pip install requests
 
-      - name: Run Telegram Message Script
+      - name: Run Telegram Bot Script
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
